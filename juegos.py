@@ -24,6 +24,9 @@ def guardar_json():
 	# archivo = open("datos.json","a")
 	# json.dump(datos,archivo)
 	# archivo.close()
+
+	# datos_organizados = set(datos)
+	# datos = [datos_organizados.copy()]
 	with open('datos.json', 'w') as my_file:
 		json.dump(datos, my_file, indent=4)
 
