@@ -1,7 +1,8 @@
+import json
 import tictactoeModificado
 import hangman
 import reversegam
-import json
+import os
 
 def agregar_datos(nombre,opcion):
 	if opcion == '1':
@@ -10,14 +11,22 @@ def agregar_datos(nombre,opcion):
 		juego_eleguido = 'ta-te-ti'
 	elif opcion == '3':
 		juego_eleguido = 'otello'
-	
+
+	# archivo = open("datos.json","r")
+	# datos = json.load(archivo)
+	# datos[nombre].append(juego_eleguido)
 	if nombre in datos:
 		datos[nombre].append(juego_eleguido)
 	else:
 		datos[nombre] = [juego_eleguido]
-	
-# def guardar_json():
-# 	json.dump(datos)
+
+def guardar_json():
+	# archivo = open("datos.json","a")
+	# json.dump(datos,archivo)
+	# archivo.close()
+	with open('datos.json', 'w') as my_file:
+		json.dump(datos, my_file, indent=4)
+
 
 
 def main(args):
@@ -45,9 +54,17 @@ def main(args):
 			agregar_datos(nombre,'3')
 			reversegam.main()
 		elif opcion == '4':
+			print(datos)
+			guardar_json()
 			sigo_jugando = False
+ 
 
+# with open('datos.json','r') as archivo:
+#     datos = json.load(archivo)
 datos = {}
+archivo = open("datos.json")
+datos = json.load(archivo)
+archivo.close()
 
 if __name__ == '__main__':
 	import sys
