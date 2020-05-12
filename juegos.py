@@ -3,6 +3,8 @@ import tictactoeModificado
 import hangman
 import reversegam
 import os
+import PySimpleGUI as sg
+
 
 def agregar_datos(nombre,opcion):
 	if opcion == '1':
@@ -35,31 +37,60 @@ def guardar_json():
 def main(args):
 	sigo_jugando = True
 	while sigo_jugando:
-		
-		print('''
-		Elegí con qué juego querés jugar:
-		1.- Ahorcado
-		2.- Ta-TE-TI
-		3.- Otello
-		4.- Salir''')
+		layout = [
+			[sg.Text('Elegí con qué juego querés jugar:'),sg.Radio('Ahorcado!', "RADIO1"), sg.Radio('TA-TE-TI', "RADIO1"),sg.Radio('Otello', "RADIO1")],
+			[sg.Submit(tooltip='Click to submit this form'), sg.Cancel()]
 
-		opcion = input()
-		if opcion == '1':
-			nombre = input("Ingrese su nombre\n")
-			agregar_datos(nombre,'1')
+		]
+
+		window = sg.Window('Juegos', layout)
+		event, values = window.read()
+		window.close()
+		
+		# print('''
+		# Elegí con qué juego querés jugar:
+		# 1.- Ahorcado
+		# 2.- Ta-TE-TI
+		# 3.- Otello
+		# 4.- Salir''')
+
+		# opcion = input()
+		print(event)
+		# opcion = values
+
+		layout_input = [
+			[sg.Text("Ingrese su nombre")],
+			[sg.InputText()],
+			[sg.Submit(tooltip='Click to submit this form'),sg.Cancel()]
+		]
+
+		if values[0]:
+			# nombre = input("Ingrese su nombre\n")
+			window = sg.Window('Juegos', layout_input)
+			event, values = window.read()
+			window.close()
+			agregar_datos(values[0],'1')
 			hangman.main()
-		elif opcion == '2':
-			nombre = input("Ingrese su nombre\n")
-			agregar_datos(nombre,'2')
+		elif values[1]:
+			# nombre = input("Ingrese su nombre\n")
+			window = sg.Window('Juegos', layout_input)
+			event, values = window.read()
+			window.close()
+			agregar_datos(values[0],'2')
 			tictactoeModificado.main()
-		elif opcion == '3':
-			nombre = input("Ingrese su nombre\n")
-			agregar_datos(nombre,'3')
+		elif values[2]:
+			# nombre = input("Ingrese su nombre\n")
+			window = sg.Window('Juegos', layout_input)
+			event, values = window.read()
+			window.close()
+			agregar_datos(values[0],'3')
 			reversegam.main()
-		elif opcion == '4':
+		elif event == "Cancel":
 			print(datos)
 			guardar_json()
+			window.close()
 			sigo_jugando = False
+			break
  
 
 # with open('datos.json','r') as archivo:
