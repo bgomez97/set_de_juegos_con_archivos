@@ -55,7 +55,6 @@ def main(args):
 		# 4.- Salir''')
 
 		# opcion = input()
-		print(event)
 		# opcion = values
 
 		layout_input = [
@@ -69,6 +68,8 @@ def main(args):
 			window = sg.Window('Juegos', layout_input)
 			event, values = window.read()
 			window.close()
+			if event == "Cancel":
+				break
 			agregar_datos(values[0],'1')
 			hangman.main()
 		elif values[1]:
@@ -76,6 +77,8 @@ def main(args):
 			window = sg.Window('Juegos', layout_input)
 			event, values = window.read()
 			window.close()
+			if event == "Cancel":
+				break
 			agregar_datos(values[0],'2')
 			tictactoeModificado.main()
 		elif values[2]:
@@ -83,6 +86,8 @@ def main(args):
 			window = sg.Window('Juegos', layout_input)
 			event, values = window.read()
 			window.close()
+			if event == "Cancel":
+				break
 			agregar_datos(values[0],'3')
 			reversegam.main()
 		elif event == "Cancel":
